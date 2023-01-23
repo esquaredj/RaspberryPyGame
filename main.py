@@ -1,2 +1,8 @@
-import asyncio, pygame, sys
-print("hello")
+import asyncio
+import pygame
+import sys
+
+async def main():
+    print("hello world")
+
+asyncio.run(main())
