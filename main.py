@@ -1,6 +1,6 @@
+import sys
 import asyncio
 import pygame
-import sys
 
 async def main():
     print("hello world")
