@@ -166,3 +166,8 @@ poetry.toml
 
 # ruff
 .ruff_cache/
+
+*.wav
+*.mp3
+*.pyc
+*-pygbag.???
