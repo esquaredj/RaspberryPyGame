@@ -4,6 +4,7 @@ from settings import tile_size, screen_width
 from player import Player
 from particles import ParticleEffect
 
+
 class Level:
     def __init__(self, level_data, surface):
         super().__init__()
@@ -33,10 +34,10 @@ class Level:
                 y = row_index * tile_size
 
                 if cell == 'X':
-                    tile = Tile((x,y), tile_size)
+                    tile = Tile((x, y), tile_size)
                     self.tiles.add(tile)
                 if cell == 'P':
-                    player_sprite = Player((x,y), self.display_surface, self.create_jump_particles)
+                    player_sprite = Player((x, y), self.display_surface, self.create_jump_particles)
                     self.player.add(player_sprite)
 
     def scroll_x(self):
@@ -73,6 +74,7 @@ class Level:
             player.on_left = False
         if player.on_right and (player.rect.right > self.current_x or player.direction.x <= 0):
             player.on_right = False
+
     def vertical_collision(self):
         player = self.player.sprite
         player.apply_gravity()

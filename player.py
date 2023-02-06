@@ -32,6 +32,12 @@ class Player(pygame.sprite.Sprite):
         self.on_left = False
         self.on_right = False
 
+        # sound effects
+        self.jump_sound = pygame.mixer.Sound('sound/character/jump.wav')
+        self.music = pygame.mixer.Sound('sound/music/Creo - Slow Down.ogg')
+        self.music.play(-1)
+        self.music.set_volume(0.7)
+
     def import_assets(self):
         character_path = './assets/Characters/Mask Dude/'
         self.animation_list = {'idle': [], 'run': [], 'jump': [], 'fall': [], 'double_jump': [], 'fall_double_jumped': []}
@@ -103,11 +109,11 @@ class Player(pygame.sprite.Sprite):
                 pygame.base.quit()
                 sys.exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE:
-                    if self.jump_count < 2:
-                        self.jump_count += 1
-                        self.jump()
-                        self.create_jump_particles(self.rect.midbottom)
+                if event.key == pygame.K_SPACE and self.jump_count < 2:
+                    self.jump_sound.play()
+                    self.jump_count += 1
+                    self.jump()
+                    self.create_jump_particles(self.rect.midbottom)
 
     def apply_gravity(self):
         self.direction.y += self.gravity
@@ -118,6 +124,8 @@ class Player(pygame.sprite.Sprite):
 
     def player_status(self):
         if self.direction.y > 0:
+            if self.jump_count == 0:
+                self.jump_count = 1
             if self.jump_count == 1:
                 self.status = 'fall'
             elif self.jump_count == 2:
