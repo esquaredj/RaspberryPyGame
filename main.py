@@ -1,4 +1,3 @@
-import sys
 import asyncio
 import pygame
 from settings import *
