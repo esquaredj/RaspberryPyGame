@@ -34,6 +34,7 @@ class Player(pygame.sprite.Sprite):
 
         # sound effects
         self.jump_sound = pygame.mixer.Sound('sound/character/jump.wav')
+        self.jump_sound.set_volume(0.2)
 
     def import_assets(self):
         character_path = './assets/Characters/Mask Dude/'

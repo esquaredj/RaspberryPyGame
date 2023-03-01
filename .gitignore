@@ -171,3 +171,6 @@ poetry.toml
 *.mp3
 *.pyc
 *-pygbag.???
+
+# Tiled
+/level/pygame.tiled-session
