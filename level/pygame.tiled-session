@@ -36,12 +36,15 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "tilesets/setup_tiles.tsx": {
+            "dynamicWrapping": false
+        },
         "tilesets/terrain_tiles.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Users/Emilija/Documents/RaspberryPyGame/assets/Terrain",
+    "last.imagePath": "C:/Users/Emilija/Documents/RaspberryPyGame/assets/Characters/Mask Dude",
     "map.height": 11,
     "map.tileHeight": 64,
     "map.tileWidth": 64,
@@ -67,5 +70,5 @@
         "height": 64,
         "width": 64
     },
-    "tileset.type": 1
+    "tileset.type": 0
 }
