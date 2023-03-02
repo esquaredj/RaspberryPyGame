@@ -12,10 +12,10 @@
     "fileStates": {
         "level_data/level_data.tmx": {
             "scale": 0.4,
-            "selectedLayer": 0,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 7742.5,
-                "y": 843.75
+                "x": 11981.25,
+                "y": 937.5
             }
         },
         "level_data/small_1.tsx": {
@@ -61,12 +61,12 @@
     ],
     "project": "pygame.tiled-project",
     "recentFiles": [
+        "level_data/level_data.tmx",
         "tilesets/setup_tiles.tsx",
         "tilesets/box.tsx",
         "tilesets/grass.tsx",
         "tilesets/terrain_tiles.tsx",
         "tilesets/coin_tiles.tsx",
-        "level_data/level_data.tmx",
         "level_data/small_1.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
