@@ -3,15 +3,14 @@ import pygame
 import sys
 from settings import *
 from level import Level
+from level_data import level_0
 
 pygame.base.init()
-screen_width = 1200
-screen_height = 700
 
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Raspberry Pi Game")
 clock = pygame.time.Clock()
-level = Level(None, screen)
+level = Level(level_0, screen)
 
 
 async def main():
