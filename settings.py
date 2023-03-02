@@ -1,5 +1,5 @@
-vertical_tiles = 11
+vertical_tiles = 20
 tile_size = 64
 
 screen_height = vertical_tiles * tile_size
-screen_width = screen_height * 16 // 9
+screen_width = 1200
