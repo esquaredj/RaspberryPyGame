@@ -23,9 +23,9 @@ class Player(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2(0, 0)
         self.speed = 8
         self.gravity = 3
-        self.jump_power = -35
+        self.jump_power = -36
         self.status = 'idle'
-        self.player_facing_right = True
+        self.facing_right = True
         self.on_ground = False
         self.jump_count = 0
         self.on_ceiling = False
@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite):
         if self.frame_index >= len(animation):
             self.frame_index = 0
 
-        if self.player_facing_right:
+        if self.facing_right:
             self.image = animation[int(self.frame_index)]
         else:
             self.image = pygame.transform.flip(animation[int(self.frame_index)], True, False)
@@ -82,7 +82,7 @@ class Player(pygame.sprite.Sprite):
 
             dust_particle = self.running_dust[int(self.dust_index)]
 
-            if self.player_facing_right:
+            if self.facing_right:
                 pos = self.rect.bottomleft - pygame.math.Vector2(6, 10)
                 self.display_surface.blit(dust_particle, pos)
             else:
@@ -94,10 +94,10 @@ class Player(pygame.sprite.Sprite):
 
         if keys[pygame.K_RIGHT]:
             self.direction.x = 1
-            self.player_facing_right = True
+            self.facing_right = True
         elif keys[pygame.K_LEFT]:
             self.direction.x = -1
-            self.player_facing_right = False
+            self.facing_right = False
         else:
             self.direction.x = 0
 
@@ -121,6 +121,8 @@ class Player(pygame.sprite.Sprite):
         self.direction.y = self.jump_power
 
     def player_status(self):
+        if self.on_ground:
+            self.jump_count = 0
         if self.direction.y > 0:
             if self.jump_count == 0:
                 self.jump_count = 1

@@ -1,28 +1,24 @@
-import asyncio
 import pygame
 from settings import *
 from level import Level
-from player import Player
+from game_data import level_0
+import asyncio
 
-pygame.base.init()
-screen_width = 1200
-screen_height = 700
-
+# Pygame setup
+pygame.init()
+pygame.display.set_caption('Raspberry PyGame')
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Raspberry Pi Game")
 clock = pygame.time.Clock()
-level = Level(level_map, screen)
-player = Player((100, 100), screen, level.create_jump_particles)
+level = Level(level_0, screen)
 
 
 async def main():
     while True:
-        screen.fill('black')
         level.run()
 
-        await asyncio.sleep(0)
         pygame.display.update()
-        clock.tick(30)
+        clock.tick(45)
+        await asyncio.sleep(0)
 
 
 asyncio.run(main())

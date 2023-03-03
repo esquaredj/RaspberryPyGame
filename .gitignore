@@ -175,4 +175,3 @@ poetry.toml
 # Tiled
 /level/pygame.tiled-session
 level/pygame.tiled-session
-*.tiled-session
