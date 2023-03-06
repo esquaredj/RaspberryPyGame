@@ -59,7 +59,7 @@ class Level:
 
         # decoration
         self.sky = Sky(8)
-        self.factory = Factory()
+        # self.factory = Factory()
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 20, level_width)
         self.clouds = Clouds(400, level_width, 30)
@@ -207,7 +207,7 @@ class Level:
         # sky
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
-        self.factory.draw(self.display_surface, self.world_shift)
+        # self.factory.draw(self.display_surface, self.world_shift)
 
         # background palms
         self.bg_palm_sprites.update(self.world_shift)
