@@ -5,8 +5,8 @@
     },
     "activeFile": "level_data/level_0.tmx",
     "expandedProjectPaths": [
-        ".",
         "level_data",
+        ".",
         "tilesets"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",

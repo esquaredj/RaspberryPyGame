@@ -3,7 +3,7 @@ from support import import_csv_layout, import_cut_graphics
 from settings import tile_size, screen_height, screen_width
 from tiles import Tile, StaticTile, Crate, Coin, Palm
 from enemy import Enemy
-from decoration import Sky, Water, Clouds
+from decoration import Sky, Water, Clouds, Factory
 from player import Player
 from particles import ParticleEffect
 
@@ -59,6 +59,7 @@ class Level:
 
         # decoration
         self.sky = Sky(8)
+        self.factory = Factory()
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 20, level_width)
         self.clouds = Clouds(400, level_width, 30)
@@ -205,7 +206,9 @@ class Level:
 
         # sky
         self.sky.draw(self.display_surface)
+        self.sky.draw_factory(self.display_surface, self.world_shift)
         self.clouds.draw(self.display_surface, self.world_shift)
+        self.factory.draw(self.display_surface, self.world_shift)
 
         # background palms
         self.bg_palm_sprites.update(self.world_shift)

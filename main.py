@@ -17,7 +17,7 @@ async def main():
         level.run()
 
         pygame.display.update()
-        clock.tick(45)
+        clock.tick(37)
         await asyncio.sleep(0)
 
 
