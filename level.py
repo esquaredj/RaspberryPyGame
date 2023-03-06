@@ -206,7 +206,6 @@ class Level:
 
         # sky
         self.sky.draw(self.display_surface)
-        self.sky.draw_factory(self.display_surface, self.world_shift)
         self.clouds.draw(self.display_surface, self.world_shift)
         self.factory.draw(self.display_surface, self.world_shift)
 

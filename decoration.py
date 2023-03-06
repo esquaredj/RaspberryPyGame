@@ -10,16 +10,12 @@ class Sky:
         self.top = pygame.image.load('./assets/decoration/sky/sky_top.png').convert()
         self.bottom = pygame.image.load('./assets/decoration/sky/sky_bottom.png').convert()
         self.middle = pygame.image.load('./assets/decoration/sky/sky_middle.png').convert()
-        self.background1 = pygame.image.load('./assets/decoration/backgrounds/factory_x3.png').convert()
         self.horizon = horizon
 
         # stretch
         self.top = pygame.transform.scale(self.top, (screen_width, tile_size))
         self.bottom = pygame.transform.scale(self.bottom, (screen_width, tile_size))
         self.middle = pygame.transform.scale(self.middle, (screen_width, tile_size))
-
-    def draw_factory(self, surface, world_shift):
-        surface.blit(self.background1, (0, 0))
 
     def draw(self, surface):
         for row in range(vertical_tile_number):
@@ -72,7 +68,7 @@ class Clouds:
 
 class Factory:
     def __init__(self):
-        self.factory = pygame.image.load('./assets/decoration/backgrounds/factory_x3.png').convert()
+        self.factory = pygame.image.load('./assets/decoration/backgrounds/factory.png').convert()
         self.factory_sprite = pygame.sprite.Group()
 
         sprite = StaticTile(0, 0, 0, self.factory)
