@@ -42,12 +42,12 @@ class Level:
         self.coin_sprites = self.create_tile_group(coin_layout, 'coins')
 
         # foreground palms
-        fg_palm_layout = import_csv_layout(level_data['fg palms'])
-        self.fg_palm_sprites = self.create_tile_group(fg_palm_layout, 'fg palms')
+        fg_palm_layout = import_csv_layout(level_data['fg_palms'])
+        self.fg_palm_sprites = self.create_tile_group(fg_palm_layout, 'fg_palms')
 
         # background palms
-        bg_palm_layout = import_csv_layout(level_data['bg palms'])
-        self.bg_palm_sprites = self.create_tile_group(bg_palm_layout, 'bg palms')
+        bg_palm_layout = import_csv_layout(level_data['bg_palms'])
+        self.bg_palm_sprites = self.create_tile_group(bg_palm_layout, 'bg_palms')
 
         # enemy
         enemy_layout = import_csv_layout(level_data['enemies'])
@@ -59,7 +59,7 @@ class Level:
 
         # decoration
         self.sky = Sky(8)
-        self.factory = Factory()
+        # self.factory = Factory()
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 20, level_width)
         self.clouds = Clouds(400, level_width, 30)
@@ -90,11 +90,11 @@ class Level:
                         if val == '0': sprite = Coin(tile_size, x, y, './assets/coins/gold')
                         if val == '1': sprite = Coin(tile_size, x, y, './assets/coins/silver')
 
-                    if type == 'fg palms':
+                    if type == 'fg_palms':
                         if val == '0': sprite = Palm(tile_size, x, y, './assets/Terrain/palm_small', 38)
                         if val == '1': sprite = Palm(tile_size, x, y, './assets/Terrain/palm_large', 64)
 
-                    if type == 'bg palms':
+                    if type == 'bg_palms':
                         sprite = Palm(tile_size, x, y, './assets/Terrain/palm_bg', 64)
 
                     if type == 'enemies':
@@ -207,7 +207,7 @@ class Level:
         # sky
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
-        self.factory.draw(self.display_surface, self.world_shift)
+        # self.factory.draw(self.display_surface, self.world_shift)
 
         # background palms
         self.bg_palm_sprites.update(self.world_shift)
