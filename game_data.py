@@ -1,11 +1,47 @@
 level_0 = {
     'terrain': './level/0/level_0._terrain.csv',
     'coins': './level/0/level_0._coins.csv',
-    'fg_palms': './level/0/level_0._fg_trees.csv',
-    'bg_palms': './level/0/level_0._bg_trees.csv',
+    'fg palms': './level/0/level_0._fg_trees.csv',
+    'bg palms': './level/0/level_0._bg_trees.csv',
     'crates': './level/0/level_0._crate.csv',
     'enemies': './level/0/level_0._enemy_tiles.csv',
     'constraints': './level/0/level_0._enemy_limits.csv',
     'player': './level/0/level_0._player_tiles.csv',
-    'grass': './level/0/level_0._grass.csv'
+    'grass': './level/0/level_0._grass.csv',
+    'node_pos': (110, 400),
+    'unlock': 1,
+    'node_graphics': './assets/level_selection/0'}
+
+level_1 = {
+    'terrain': './level/1/level_1_terrain.csv',
+    'coins': './level/1/level_1_coins.csv',
+    'fg palms': './level/1/level_1_fg_palms.csv',
+    'bg palms': './level/1/level_1_bg_palms.csv',
+    'crates': './level/1/level_1_crates.csv',
+    'enemies': './level/1/level_1_enemies.csv',
+    'constraints': './level/1/level_1_constraints.csv',
+    'player': './level/1/level_1_player.csv',
+    'grass': './level/1/level_1_grass.csv',
+    'node_pos': (600, 560),
+    'node_graphics': './assets/level_selection/1',
+    'unlock': 2}
+
+level_2 = {
+    'terrain': './level/2/level_2_terrain.csv',
+    'coins': './level/2/level_2_coins.csv',
+    'fg palms': './level/2/level_2_fg_palms.csv',
+    'bg palms': './level/2/level_2_bg_palms.csv',
+    'crates': './level/2/level_2_crates.csv',
+    'enemies': './level/2/level_2_enemies.csv',
+    'constraints': './level/2/level_2_constraints.csv',
+    'player': './level/2/level_2_player.csv',
+    'grass': './level/2/level_2_grass.csv',
+    'node_pos': (1000, 400),
+    'node_graphics': './assets/level_selection/2',
+    'unlock': 3}
+
+levels = {
+    0: level_0,
+    1: level_1,
+    2: level_2
 }

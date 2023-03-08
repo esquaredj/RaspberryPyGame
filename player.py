@@ -1,149 +1,186 @@
-import pygame
-from support import import_folder
+import pygame 
+from support import import_folder, resource_path
+from math import sin
 import sys
 
-
 class Player(pygame.sprite.Sprite):
-    def __init__(self, pos, surface, create_jump_particles):
-        super().__init__()
-        self.import_assets()
-        self.frame_index = 0
-        self.animation_speed = 0.25
-        self.image = self.animation_list['idle'][self.frame_index]
-        self.rect = self.image.get_rect(topleft=pos)
+	def __init__(self,pos,surface,create_jump_particles,change_health):
+		super().__init__()
+		self.import_character_assets()
+		self.frame_index = 0
+		self.animation_speed = 0.15
+		self.image = self.animations['idle'][self.frame_index]
+		self.rect = self.image.get_rect(topleft = pos)
+		
+		# dust particles 
+		self.import_dust_run_particles()
+		self.dust_frame_index = 0
+		self.dust_animation_speed = 0.15
+		self.display_surface = surface
+		self.create_jump_particles = create_jump_particles
 
-        # dust
-        self.import_dust()
-        self.dust_index = 0
-        self.dust_speed = 0.25
-        self.display_surface = surface
-        self.create_jump_particles = create_jump_particles
+		# player movement
+		self.direction = pygame.math.Vector2(0,0)
+		self.speed = 8
+		self.gravity = 3
+		self.jump_speed = -36
+		self.collision_rect = pygame.Rect(self.rect.topleft,(50,self.rect.height))
 
-        # player movement
-        self.direction = pygame.math.Vector2(0, 0)
-        self.speed = 8
-        self.gravity = 3
-        self.jump_power = -36
-        self.status = 'idle'
-        self.facing_right = True
-        self.on_ground = False
-        self.jump_count = 0
-        self.on_ceiling = False
-        self.on_left = False
-        self.on_right = False
+		# player status
+		self.status = 'idle'
+		self.facing_right = True
+		self.on_ground = False
+		self.jump_count = 0
+		self.on_ceiling = False
+		self.on_left = False
+		self.on_right = False
 
-        # sound effects
-        self.jump_sound = pygame.mixer.Sound('sound/character/jump.wav')
-        self.jump_sound.set_volume(0.2)
+		# health management
+		self.change_health = change_health
+		self.invincible = False
+		self.invincibility_duration = 1000
+		self.hurt_time = 0
 
-    def import_assets(self):
-        character_path = './assets/Characters/Mask Dude/'
-        self.animation_list = {'idle': [], 'run': [], 'jump': [], 'fall': [], 'double_jump': [], 'fall_double_jumped': []}
+		# audio
+		self.jump_temp = resource_path('./audio/jump.ogg')
+		self.jump_sound = pygame.mixer.Sound(self.jump_temp)
+		self.jump_sound.set_volume(0.5)
 
-        for animation in self.animation_list.keys():
-            full_path = character_path + animation
-            self.animation_list[animation] = import_folder(full_path)
+		self.hit_temp = resource_path('./audio/hitHurt.ogg')
+		self.hit_sound = pygame.mixer.Sound(self.hit_temp)
+		self.hit_sound.set_volume(0.5)
 
-    def import_dust(self):
-        self.running_dust = import_folder('./assets/dust_particles/run')
+	def import_character_assets(self):
+		character_path = './assets/Characters/Mask Dude/'
+		self.animations = {'idle':[],'run':[],'jump':[],'fall':[],'double_jump':[],'fall_double_jumped':[]}
 
-    def animate_player(self):
-        animation = self.animation_list[self.status]
+		for animation in self.animations.keys():
+			full_path = character_path + animation
+			self.animations[animation] = import_folder(full_path)
 
-        self.frame_index += self.animation_speed
+	def import_dust_run_particles(self):
+		self.dust_temp = resource_path('./assets/dust_particles/run')
+		self.dust_run_particles = import_folder(self.dust_temp)
 
-        if self.frame_index >= len(animation):
-            self.frame_index = 0
+	def animate(self):
+		animation = self.animations[self.status]
 
-        if self.facing_right:
-            self.image = animation[int(self.frame_index)]
-        else:
-            self.image = pygame.transform.flip(animation[int(self.frame_index)], True, False)
+		# loop over frame index 
+		self.frame_index += self.animation_speed
+		if self.frame_index >= len(animation):
+			self.frame_index = 0
 
-        if self.on_ground and self.on_right:
-            self.rect = self.image.get_rect(bottomright=self.rect.bottomright)
-        elif self.on_ground and self.on_left:
-            self.rect = self.image.get_rect(bottomleft=self.rect.bottomleft)
-        elif self.on_ground:
-            self.rect = self.image.get_rect(midbottom=self.rect.midbottom)
-        elif self.on_ceiling and self.on_right:
-            self.rect = self.image.get_rect(topright=self.rect.topright)
-        elif self.on_ceiling and self.on_left:
-            self.rect = self.image.get_rect(topleft=self.rect.topleft)
-        elif self.on_ceiling:
-            self.rect = self.image.get_rect(midtop=self.rect.midtop)
+		image = animation[int(self.frame_index)]
+		if self.facing_right:
+			self.image = image
+			self.rect.bottomleft = self.collision_rect.bottomleft
+		else:
+			flipped_image = pygame.transform.flip(image,True,False)
+			self.image = flipped_image
+			self.rect.bottomright = self.collision_rect.bottomright
 
-    def dust_animation(self):
-        if self.on_ground and self.status == 'run':
-            self.dust_index += self.dust_speed
+		if self.invincible:
+			alpha = self.wave_value()
+			self.image.set_alpha(alpha)
+		else:
+			self.image.set_alpha(255)
 
-            if self.dust_index >= len(self.running_dust):
-                self.dust_index = 0
+		self.rect = self.image.get_rect(midbottom = self.rect.midbottom)		
 
-            dust_particle = self.running_dust[int(self.dust_index)]
+	def run_dust_animation(self):
+		if self.status == 'run' and self.on_ground:
+			self.dust_frame_index += self.dust_animation_speed
+			if self.dust_frame_index >= len(self.dust_run_particles):
+				self.dust_frame_index = 0
 
-            if self.facing_right:
-                pos = self.rect.bottomleft - pygame.math.Vector2(6, 10)
-                self.display_surface.blit(dust_particle, pos)
-            else:
-                pos = self.rect.bottomright - pygame.math.Vector2(6, 10)
-                self.display_surface.blit(pygame.transform.flip(dust_particle, True, False), pos)
+			dust_particle = self.dust_run_particles[int(self.dust_frame_index)]
 
-    def get_input(self):
-        keys = pygame.key.get_pressed()
+			if self.facing_right:
+				pos = self.rect.bottomleft - pygame.math.Vector2(6,10)
+				self.display_surface.blit(dust_particle,pos)
+			else:
+				pos = self.rect.bottomright - pygame.math.Vector2(6,10)
+				flipped_dust_particle = pygame.transform.flip(dust_particle,True,False)
+				self.display_surface.blit(flipped_dust_particle,pos)
 
-        if keys[pygame.K_RIGHT]:
-            self.direction.x = 1
-            self.facing_right = True
-        elif keys[pygame.K_LEFT]:
-            self.direction.x = -1
-            self.facing_right = False
-        else:
-            self.direction.x = 0
+	def get_input(self):
+		keys = pygame.key.get_pressed()
 
-    def event_logic(self):
-        for event in pygame.event.get():
-            if event.type == pygame.constants.QUIT:
-                pygame.base.quit()
-                sys.exit()
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_SPACE and self.jump_count < 2:
-                    self.jump_count += 1
-                    self.jump_sound.play()
-                    self.jump()
-                    self.create_jump_particles(self.rect.midbottom)
+		if keys[pygame.K_RIGHT]:
+			self.direction.x = 1
+			self.facing_right = True
+		elif keys[pygame.K_LEFT]:
+			self.direction.x = -1
+			self.facing_right = False
+		else:
+			self.direction.x = 0
 
-    def apply_gravity(self):
-        self.direction.y += self.gravity
-        self.rect.y += self.direction.y
+	def event_logic(self):
+		for event in pygame.event.get():
+			if event.type == pygame.constants.QUIT:
+				pygame.base.quit()
+				sys.exit()
+			if event.type == pygame.KEYDOWN:
+				if event.key == pygame.K_SPACE and self.jump_count < 2:
+					self.jump_count += 1
+					self.jump_sound.play()
+					self.jump()
+					self.create_jump_particles(self.rect.midbottom)
 
-    def jump(self):
-        self.direction.y = self.jump_power
+	def apply_gravity(self):
+		self.direction.y += self.gravity
+		self.collision_rect.y += self.direction.y
 
-    def player_status(self):
-        if self.on_ground:
-            self.jump_count = 0
-        if self.direction.y > 0:
-            if self.jump_count == 0:
-                self.jump_count = 1
-            if self.jump_count == 1:
-                self.status = 'fall'
-            elif self.jump_count == 2:
-                self.status = 'fall_double_jumped'
-        elif self.direction.y < 0:
-            if self.jump_count == 1:
-                self.status = 'jump'
-            else:
-                self.status = 'double_jump'
-        else:
-            if self.direction.x != 0:
-                self.status = 'run'
-            else:
-                self.status = 'idle'
+	def jump(self):
+		self.direction.y = self.jump_speed
+		self.jump_sound.play()
 
-    def update(self):
-        self.get_input()
-        self.player_status()
-        self.animate_player()
-        self.dust_animation()
-        self.event_logic()
+	def get_damage(self):
+		if not self.invincible:
+			self.hit_sound.play()
+			self.change_health(-10)
+			self.invincible = True
+			self.hurt_time = pygame.time.get_ticks()
+
+	def invincibility_timer(self):
+		if self.invincible:
+			current_time = pygame.time.get_ticks()
+			if current_time - self.hurt_time >= self.invincibility_duration:
+				self.invincible = False
+
+	def wave_value(self):
+		value = sin(pygame.time.get_ticks())
+		if value >= 0: return 255
+		else: return 0
+
+	def player_status(self):
+		if self.on_ground:
+			self.jump_count = 0
+		if self.direction.y > 0:
+			if self.jump_count == 0:
+				self.jump_count = 1
+			if self.jump_count == 1:
+				self.status = 'fall'
+			elif self.jump_count == 2:
+				self.status = 'fall_double_jumped'
+		elif self.direction.y < 0:
+			if self.jump_count == 1:
+				self.status = 'jump'
+			else:
+				self.status = 'double_jump'
+		else:
+			if self.direction.x != 0:
+				self.status = 'run'
+			else:
+				self.status = 'idle'
+
+	def update(self):
+		self.get_input()
+		self.animate()
+		self.run_dust_animation()
+		self.invincibility_timer()
+		self.wave_value()
+		self.player_status()
+		self.event_logic()
+
+		
