@@ -3,36 +3,51 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level_data/level_1.tmx",
+    "activeFile": "tilesets/wind_turbine.tsx",
     "expandedProjectPaths": [
-        "tilesets",
         "level_data",
+        "tilesets",
         "."
     ],
     "fileStates": {
         "level_data/level_1.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 0.75,
+            "selectedLayer": 8,
             "viewCenter": {
-                "x": 558.6666666666667,
-                "y": 361.33333333333326
+                "x": 600,
+                "y": 518.6666666666665
             }
         },
         "tilesets/coin_tiles.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/crate.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "tilesets/player.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "tilesets/terrain_tiles_2.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/wind_turbine.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
         }
     },
-    "last.imagePath": "C:/Jake/Projects/RaspberryPyGame/assets/Terrain",
+    "last.exportedFilePath": "C:/Jake/Projects/RaspberryPyGame/level/1",
+    "last.imagePath": "C:/Jake/Projects/RaspberryPyGame/assets/Terrain/wind_turbine",
     "map.height": 15,
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 64,
     "map.tileWidth": 64,
@@ -41,18 +56,23 @@
         "level_data/level_1.tmx",
         "tilesets/terrain_tiles_2.tsx",
         "tilesets/coin_tiles.tsx",
-        "tilesets/player.tsx"
+        "tilesets/player.tsx",
+        "tilesets/wind_turbine.tsx",
+        "tilesets/crate.tsx"
     ],
     "project": "level_1.tiled-project",
     "recentFiles": [
-        "tilesets/player.tsx",
-        "tilesets/coin_tiles.tsx",
+        "level_data/level_1.tmx",
         "tilesets/terrain_tiles_2.tsx",
-        "level_data/level_1.tmx"
+        "tilesets/coin_tiles.tsx",
+        "tilesets/player.tsx",
+        "tilesets/crate.tsx",
+        "tilesets/wind_turbine.tsx"
     ],
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
         "height": 64,
         "width": 64
-    }
+    },
+    "tileset.type": 1
 }

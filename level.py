@@ -1,7 +1,7 @@
 import pygame
 from support import import_csv_layout, import_cut_graphics, resource_path
 from settings import tile_size, screen_height, screen_width
-from tiles import Tile, StaticTile, Crate, Coin, Palm
+from tiles import Tile, StaticTile, Crate, Coin, Palm, WindTurbine
 from enemy import Enemy
 from decoration import Sky, Water, Clouds
 from player import Player
@@ -74,7 +74,13 @@ class Level:
 
         # constraint
         constraint_layout = import_csv_layout(level_data['constraints'])
-        self.constraint_sprites = self.create_tile_group(constraint_layout, 'constraint')
+        self.constraint_sprites = self.create_tile_group(constraint_layout, 'constraints')
+
+        # turbines
+        if self.current_level == 1:
+            turbine_layout = import_csv_layout(level_data['wind_turbines'])
+            print(turbine_layout)
+            self.turbine_sprites = self.create_tile_group(turbine_layout, 'wind_turbines')
 
         # decoration
         self.sky = Sky(8)
@@ -91,39 +97,54 @@ class Level:
                     x = col_index * tile_size
                     y = row_index * tile_size
 
-                    if type == 'terrain':
-                        self.terrain_tile_list_temp = resource_path('./assets/Terrain/terrain_tiles.png')
-                        terrain_tile_list = import_cut_graphics(self.terrain_tile_list_temp)
+                    if type == 'terrain' and self.current_level == 0:
+                        terrain_tile_list = import_cut_graphics(resource_path('./assets/Terrain/terrain_tiles.png'))
                         tile_surface = terrain_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
+                        sprite_group.add(sprite)
+
+                    if type == 'terrain' and self.current_level == 1:
+                        terrain_tile_list = import_cut_graphics(resource_path('./assets/Terrain/terrain_tiles_2.png'))
+                        tile_surface = terrain_tile_list[int(val)]
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                        sprite_group.add(sprite)
 
                     if type == 'grass':
                         self.grass_tile_list_temp = resource_path('./assets/decoration/grass/grass.png')
                         grass_tile_list = import_cut_graphics(self.grass_tile_list_temp)
                         tile_surface = grass_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
+                        sprite_group.add(sprite)
 
                     if type == 'crates':
                         sprite = Crate(tile_size, x, y)
+                        sprite_group.add(sprite)
 
                     if type == 'coins':
                         if val == '0': sprite = Coin(tile_size, x, y, resource_path('./assets/coins/gold'), 5)
                         if val == '1': sprite = Coin(tile_size, x, y, resource_path('./assets/coins/silver'), 1)
+                        sprite_group.add(sprite)
 
                     if type == 'fg palms':
                         if val == '0': sprite = Palm(tile_size, x, y, resource_path('./assets/Terrain/palm_small'), 38)
                         if val == '1': sprite = Palm(tile_size, x, y, resource_path('./assets/Terrain/palm_large'), 64)
+                        sprite_group.add(sprite)
 
                     if type == 'bg palms':
                         sprite = Palm(tile_size, x, y, resource_path('./assets/Terrain/palm_bg'), 64)
+                        sprite_group.add(sprite)
 
                     if type == 'enemies':
                         sprite = Enemy(tile_size, x, y)
+                        sprite_group.add(sprite)
 
-                    if type == 'constraint':
+                    if type == 'constraints':
                         sprite = Tile(tile_size, x, y)
+                        sprite_group.add(sprite)
 
-                    sprite_group.add(sprite)
+                    if type == 'wind_turbines':
+                        sprite = WindTurbine(tile_size, x, y, resource_path('./assets/Terrain/wind_turbine'), 64)
+                        sprite_group.add(sprite)
 
         return sprite_group
 
@@ -136,7 +157,8 @@ class Level:
                     sprite = Player((x, y), self.display_surface, self.create_jump_particles, change_health)
                     self.player.add(sprite)
                 if val == '1':
-                    hat_surface = pygame.image.load(resource_path('./assets/Characters/Mask Dude/idle/1.png')).convert_alpha()
+                    hat_surface = pygame.image.load(
+                        resource_path('./assets/Characters/Mask Dude/idle/1.png')).convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 
