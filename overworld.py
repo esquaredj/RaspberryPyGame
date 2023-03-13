@@ -17,8 +17,7 @@ class Node(pygame.sprite.Sprite):
             self.status = 'locked'
         self.rect = self.image.get_rect(center=pos)
 
-        self.detection_zone = pygame.Rect(self.rect.centerx - (icon_speed / 2), self.rect.centery - (icon_speed / 2),
-                                          icon_speed, icon_speed)
+        self.detection_zone = pygame.Rect(self.rect.centerx - (icon_speed / 2), self.rect.centery - (icon_speed / 2), icon_speed, icon_speed)
 
     def animate(self):
         self.frame_index += 0.15
@@ -39,13 +38,11 @@ class Icon(pygame.sprite.Sprite):
     def __init__(self, pos):
         super().__init__()
         self.pos = pos
-        self.image_overwrite = resource_path('./assets/level_selection/icon.png')
-        self.image = pygame.image.load(self.image_overwrite).convert_alpha()
+        self.image = pygame.image.load(resource_path('./assets/level_selection/icon.png')).convert_alpha()
         self.rect = self.image.get_rect(center=pos)
 
     def update(self):
         self.rect.center = self.pos
-
 
 class Overworld:
     def __init__(self, start_level, max_level, surface, create_level):
@@ -136,10 +133,19 @@ class Overworld:
             if current_time - self.start_time >= self.timer_length:
                 self.allow_input = True
 
-    def add_extra_images(self):
-        self.logo_overwrite = resource_path('./assets/level_selection/logo.png')
-        self.logo = pygame.image.load(self.logo_overwrite).convert_alpha()
+    def add_extra_images(self, max_level):
+        self.logo = pygame.image.load(resource_path('./assets/level_selection/logo.png')).convert_alpha()
         self.display_surface.blit(self.logo, (400, 100))
+        if max_level >= 0:
+            self.dog1 = pygame.image.load(resource_path('./assets/dog/dog1.png')).convert_alpha()
+            self.display_surface.blit(self.dog1, (400, 200))
+        if max_level >= 1:
+            self.dog2 = pygame.image.load(resource_path('./assets/dog/dog2.png')).convert_alpha()
+            self.display_surface.blit(self.dog2, (450, 200))
+        if max_level >= 2:
+            self.dog3 = pygame.image.load(resource_path('./assets/dog/dog3.png')).convert_alpha()
+            self.display_surface.blit(self.dog3, (500, 200))
+            print(self.max_level)
 
     def run(self):
         self.input_timer()
@@ -153,4 +159,5 @@ class Overworld:
         self.draw_paths()
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)
-        self.add_extra_images()
+        self.add_extra_images(self.max_level)
+        print(self.max_level)

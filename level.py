@@ -17,10 +17,8 @@ class Level:
         self.current_x = None
 
         # audio
-        self.coin_temp = resource_path('./audio/pickupCoin.ogg')
-        self.coin_sound = pygame.mixer.Sound(self.coin_temp)
-        self.stomp_temp = resource_path('./audio/land.ogg')
-        self.stomp_sound = pygame.mixer.Sound(self.stomp_temp)
+        self.coin_sound = pygame.mixer.Sound(resource_path('./audio/pickupCoin.ogg'))
+        self.stomp_sound = pygame.mixer.Sound(resource_path('./audio/land.ogg'))
 
         # overworld connection
         self.create_overworld = create_overworld
@@ -110,8 +108,7 @@ class Level:
                         sprite_group.add(sprite)
 
                     if type == 'grass':
-                        self.grass_tile_list_temp = resource_path('./assets/decoration/grass/grass.png')
-                        grass_tile_list = import_cut_graphics(self.grass_tile_list_temp)
+                        grass_tile_list = import_cut_graphics(resource_path('./assets/decoration/grass/grass.png'))
                         tile_surface = grass_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                         sprite_group.add(sprite)
