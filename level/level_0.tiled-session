@@ -1,25 +1,97 @@
 {
-    "activeFile": "",
+    "activeFile": "level_data/temp.tmx",
     "expandedProjectPaths": [
+        ".",
+        "level_data",
+        "tilesets"
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
+        "level_data/level_0.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 2586,
+                "y": 198
+            }
+        },
+        "level_data/temp.tmx": {
+            "scale": 1,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 708.5,
+                "y": 608.5
+            }
+        },
         "tilesets/coin_tiles.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tilesets/crate.tsx": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tilesets/enemy_ghost.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/grass.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/player.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/terrain_tiles_0.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/terrain_tiles_2.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "tilesets/trees.tsx": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tilesets/wind_turbine.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         }
     },
+    "last.exportedFilePath": "C:/Jake/Projects/RaspberryPyGame/level/0",
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
     "openFiles": [
+        "level_data/temp.tmx",
+        "tilesets/coin_tiles.tsx",
+        "tilesets/crate.tsx",
+        "tilesets/enemy_ghost.tsx",
+        "tilesets/grass.tsx",
+        "tilesets/player.tsx",
+        "tilesets/terrain_tiles_0.tsx",
+        "tilesets/terrain_tiles_2.tsx",
+        "tilesets/trees.tsx",
+        "tilesets/wind_turbine.tsx"
     ],
     "project": "level_0.tiled-project",
     "recentFiles": [
+        "tilesets/wind_turbine.tsx",
+        "tilesets/trees.tsx",
+        "tilesets/terrain_tiles_2.tsx",
+        "tilesets/terrain_tiles_0.tsx",
+        "tilesets/player.tsx",
+        "tilesets/grass.tsx",
+        "tilesets/enemy_ghost.tsx",
+        "tilesets/crate.tsx",
+        "tilesets/coin_tiles.tsx",
+        "level_data/temp.tmx",
+        "level_data/level_0.tmx"
     ]
 }
