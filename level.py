@@ -305,9 +305,10 @@ class Level:
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
 
-
         if self.current_level == 1:
             self.level1background.draw(self.display_surface, self.world_shift)
+            self.turbine_sprites.draw(self.display_surface)
+            self.turbine_sprites.update(self.world_shift)
         elif self.current_level == 2:
             self.level2background.draw(self.display_surface, self.world_shift)
 

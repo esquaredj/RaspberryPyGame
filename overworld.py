@@ -145,7 +145,6 @@ class Overworld:
         if max_level > 2:
             self.dog3 = pygame.image.load(resource_path('./assets/dog/dog3.png')).convert_alpha()
             self.display_surface.blit(self.dog3, (700, 200))
-            print(self.max_level)
 
     def run(self):
         self.input_timer()

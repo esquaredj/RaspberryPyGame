@@ -121,7 +121,7 @@ class Player(pygame.sprite.Sprite):
 				pygame.base.quit()
 				sys.exit()
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_SPACE and self.jump_count < 2:
+				if event.key == pygame.K_SPACE:
 					self.jump_count += 1
 					self.jump_sound.play()
 					self.jump()
