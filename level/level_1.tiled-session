@@ -3,19 +3,19 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "tilesets/wind_turbine.tsx",
+    "activeFile": "",
     "expandedProjectPaths": [
-        "level_data",
         "tilesets",
-        "."
+        ".",
+        "level_data"
     ],
     "fileStates": {
         "level_data/level_1.tmx": {
             "scale": 0.75,
             "selectedLayer": 8,
             "viewCenter": {
-                "x": 600,
-                "y": 518.6666666666665
+                "x": 6840,
+                "y": 738.6666666666665
             }
         },
         "tilesets/coin_tiles.tsx": {
@@ -53,12 +53,6 @@
     "map.tileWidth": 64,
     "map.width": 200,
     "openFiles": [
-        "level_data/level_1.tmx",
-        "tilesets/terrain_tiles_2.tsx",
-        "tilesets/coin_tiles.tsx",
-        "tilesets/player.tsx",
-        "tilesets/wind_turbine.tsx",
-        "tilesets/crate.tsx"
     ],
     "project": "level_1.tiled-project",
     "recentFiles": [

@@ -3,7 +3,7 @@ from support import import_csv_layout, import_cut_graphics, resource_path
 from settings import tile_size, screen_height, screen_width
 from tiles import Tile, StaticTile, Crate, Coin, Palm, WindTurbine
 from enemy import Enemy
-from decoration import Sky, Water, Clouds
+from decoration import Sky, Water, Clouds, Level1Background, Level2Background
 from player import Player
 from particles import ParticleEffect
 from game_data import levels
@@ -47,6 +47,7 @@ class Level:
         self.terrain_sprites = self.create_tile_group(terrain_layout, 'terrain')
 
         # grass setup
+
         grass_layout = import_csv_layout(level_data['grass'])
         self.grass_sprites = self.create_tile_group(grass_layout, 'grass')
 
@@ -77,11 +78,17 @@ class Level:
         # turbines
         if self.current_level == 1:
             turbine_layout = import_csv_layout(level_data['wind_turbines'])
-            print(turbine_layout)
             self.turbine_sprites = self.create_tile_group(turbine_layout, 'wind_turbines')
+
+        if self.current_level == 2:
+            terrain_deco_layout = import_csv_layout(level_data['terrain_deco'])
+            self.terrain_deco_sprites = self.create_tile_group(terrain_deco_layout, 'terrain_deco')
+
 
         # decoration
         self.sky = Sky(8)
+        self.level1background = Level1Background()
+        self.level2background = Level2Background()
         level_width = len(terrain_layout[0]) * tile_size
         self.water = Water(screen_height - 20, level_width)
         self.clouds = Clouds(400, level_width, 30)
@@ -103,6 +110,12 @@ class Level:
 
                     if type == 'terrain' and self.current_level == 1:
                         terrain_tile_list = import_cut_graphics(resource_path('./assets/Terrain/terrain_tiles_2.png'))
+                        tile_surface = terrain_tile_list[int(val)]
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                        sprite_group.add(sprite)
+
+                    if type == 'terrain' and self.current_level == 2:
+                        terrain_tile_list = import_cut_graphics(resource_path('./assets/Terrain/terrain_tiles.png'))
                         tile_surface = terrain_tile_list[int(val)]
                         sprite = StaticTile(tile_size, x, y, tile_surface)
                         sprite_group.add(sprite)
@@ -143,6 +156,13 @@ class Level:
                         sprite = WindTurbine(tile_size, x, y, resource_path('./assets/Terrain/wind_turbine'), 64)
                         sprite_group.add(sprite)
 
+                    if type == 'terrain_deco' and self.current_level == 2:
+                        terrain_deco_tile_list = import_cut_graphics(resource_path('./assets/Terrain/terrain_tiles_3.png'))
+                        tile_surface = terrain_deco_tile_list[int(val)]
+                        sprite = StaticTile(tile_size, x, y, tile_surface)
+                        sprite_group.add(sprite)
+
+
         return sprite_group
 
     def player_setup(self, layout, change_health):
@@ -153,9 +173,19 @@ class Level:
                 if val == '0':
                     sprite = Player((x, y), self.display_surface, self.create_jump_particles, change_health)
                     self.player.add(sprite)
-                if val == '1':
+                if val == '1' and self.current_level == 0:
                     hat_surface = pygame.image.load(
-                        resource_path('./assets/Characters/Mask Dude/idle/1.png')).convert_alpha()
+                        resource_path('./assets/dog/dog1.png')).convert_alpha()
+                    sprite = StaticTile(tile_size, x, y, hat_surface)
+                    self.goal.add(sprite)
+                elif val == '1' and self.current_level == 1:
+                    hat_surface = pygame.image.load(
+                        resource_path('./assets/dog/dog2.png')).convert_alpha()
+                    sprite = StaticTile(tile_size, x, y, hat_surface)
+                    self.goal.add(sprite)
+                elif val == '1' and self.current_level == 2:
+                    hat_surface = pygame.image.load(
+                        resource_path('./assets/dog/dog3.png')).convert_alpha()
                     sprite = StaticTile(tile_size, x, y, hat_surface)
                     self.goal.add(sprite)
 
@@ -275,6 +305,12 @@ class Level:
         self.sky.draw(self.display_surface)
         self.clouds.draw(self.display_surface, self.world_shift)
 
+
+        if self.current_level == 1:
+            self.level1background.draw(self.display_surface, self.world_shift)
+        elif self.current_level == 2:
+            self.level2background.draw(self.display_surface, self.world_shift)
+
         # background palms
         self.bg_palm_sprites.update(self.world_shift)
         self.bg_palm_sprites.draw(self.display_surface)
@@ -286,6 +322,10 @@ class Level:
         # terrain
         self.terrain_sprites.update(self.world_shift)
         self.terrain_sprites.draw(self.display_surface)
+
+        if self.current_level == 2:
+            self.terrain_deco_sprites.update(self.world_shift)
+            self.terrain_deco_sprites.draw(self.display_surface)
 
         # enemy
         self.enemy_sprites.update(self.world_shift)
@@ -332,3 +372,4 @@ class Level:
 
         # water
         self.water.draw(self.display_surface, self.world_shift)
+

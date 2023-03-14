@@ -136,15 +136,15 @@ class Overworld:
     def add_extra_images(self, max_level):
         self.logo = pygame.image.load(resource_path('./assets/level_selection/logo.png')).convert_alpha()
         self.display_surface.blit(self.logo, (400, 100))
-        if max_level >= 0:
+        if max_level > 0:
             self.dog1 = pygame.image.load(resource_path('./assets/dog/dog1.png')).convert_alpha()
             self.display_surface.blit(self.dog1, (400, 200))
-        if max_level >= 1:
+        if max_level > 1:
             self.dog2 = pygame.image.load(resource_path('./assets/dog/dog2.png')).convert_alpha()
-            self.display_surface.blit(self.dog2, (450, 200))
-        if max_level >= 2:
+            self.display_surface.blit(self.dog2, (550, 200))
+        if max_level > 2:
             self.dog3 = pygame.image.load(resource_path('./assets/dog/dog3.png')).convert_alpha()
-            self.display_surface.blit(self.dog3, (500, 200))
+            self.display_surface.blit(self.dog3, (700, 200))
             print(self.max_level)
 
     def run(self):
@@ -160,4 +160,3 @@ class Overworld:
         self.nodes.draw(self.display_surface)
         self.icon.draw(self.display_surface)
         self.add_extra_images(self.max_level)
-        print(self.max_level)

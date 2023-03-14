@@ -28,15 +28,16 @@ level_1 = {
     'unlock': 2}
 
 level_2 = {
-    'terrain': './level/2/level_2_terrain.csv',
+    'terrain': './level/2/level_2_terrain_collide.csv',
     'coins': './level/2/level_2_coins.csv',
-    'fg palms': './level/2/level_2_fg_palms.csv',
-    'bg palms': './level/2/level_2_bg_palms.csv',
+    'fg palms': './level/2/level_2_fgtrees.csv',
+    'bg palms': './level/2/level_2_bgtrees.csv',
     'crates': './level/2/level_2_crates.csv',
     'enemies': './level/2/level_2_enemies.csv',
     'constraints': './level/2/level_2_constraints.csv',
     'player': './level/2/level_2_player.csv',
     'grass': './level/2/level_2_grass.csv',
+    'terrain_deco': './level/2/level_2_terrain_deco.csv',
     'node_pos': (1000, 400),
     'node_graphics': './assets/level_selection/2',
     'unlock': 3}
