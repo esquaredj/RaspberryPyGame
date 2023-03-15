@@ -107,7 +107,7 @@ class Level1Background:
 
 class Level2Background:
     def __init__(self):
-        self.background1 = pygame.image.load('./assets/backgrounds/level_2.png').convert()
+        self.background1 = pygame.image.load('./assets/backgrounds/level_2_dark.png').convert()
         self.background1_sprite = pygame.sprite.Group()
 
         sprite = StaticTile(0, -300, 0, self.background1)
