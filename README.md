@@ -14,4 +14,4 @@
 
 - Clone the repo.
 - Install the requirements with `pip install -r requirements.txt`.
-- Run `main.py` as a pythoon script
+- Run `main.py` as a python script
