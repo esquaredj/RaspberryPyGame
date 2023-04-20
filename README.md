@@ -15,3 +15,7 @@
 - Clone the repo.
 - Install the requirements with `pip install -r requirements.txt`.
 - Run `main.py` as a python script
+
+----
+
+https://www.youtube.com/watch?v=VpQuVawLGME
