@@ -2,6 +2,9 @@
 
 ## Running the game
 
+### https://pygame.rcn.sh
+
+### Running Locally:
 #### Option 1: Serve in a web browser
 
 - Clone the repo.
